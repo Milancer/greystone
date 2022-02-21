@@ -1,0 +1,70 @@
+<div class="table-container hide-fullscreen">
+    <mat-form-field appearance="outline" class="no-padding mat-input">
+        <mat-label>Search Columns</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (input)="searchFuction($event.target.value)" type="text" />
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> Id. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by title"> Title </th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+            <th mat-header-cell *matHeaderCellDef> Year </th>
+            <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="releaseDate">
+            <th mat-header-cell *matHeaderCellDef> Release Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.releaseDate}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="averageRating">
+            <th mat-header-cell *matHeaderCellDef> Average Rating </th>
+            <td mat-cell *matCellDef="let element"> {{element.ratings | averageRating }} / 10</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]"showFirstLastButtons></mat-paginator>
+</div>
+
+<div class="mobile-container hide-mobile">
+    <mat-form-field appearance="outline" class="no-padding mat-input">
+        <mat-label>Search Columns</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (input)="searchFuction($event.target.value)" type="text" />
+    </mat-form-field>
+    <div class="mat-list-container"*ngFor="let data of dataSource?.filteredData">
+        <mat-list>
+            <mat-list-item>
+                <h2>ID</h2>  
+                <h2 class="list-item">{{ data.id }}</h2>
+            </mat-list-item>
+            <mat-list-item>
+                <h2>Title</h2>  
+                <h2 class="list-item">{{ data.title }}</h2>
+            </mat-list-item>
+            <mat-list-item>
+                <h2>Year</h2>  
+                <h2 class="list-item">{{ data.year }}</h2>
+            </mat-list-item>
+            <mat-list-item>
+                <h2>Release Date</h2>  
+                <h2 class="list-item">{{ data.releaseDate }}</h2>
+            </mat-list-item>
+            <mat-list-item>
+                <h2>Avg Rating</h2>  
+                <h2 class="list-item">{{ data.ratings | averageRating }}</h2>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>
